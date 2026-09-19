@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soy responsable de mi propio desarrollo profesional · Paradigma B</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul:#1d95cc; --violeta:#8a1c86; --indigo:#5b5299;
+  --purpura:#8f579f; --cyan:#47c0ef; --texto:#1f1f1f;
+  --bg:#f8f9fb; --gris:#d9d9d9; --linea:#ececf0; --blanco:#fff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--texto);
+  font-family:"Lato",Calibri,Arial,sans-serif; font-weight:400;
+  line-height:1.7; font-size:16px; padding:32px 16px;
+}
+.wrap{max-width:780px;margin:0 auto}
+.card{background:var(--blanco);border:1px solid var(--linea);border-radius:16px;padding:44px 48px}
+header{text-align:center;margin-bottom:8px}
+.marca{font-size:30px;letter-spacing:.5px}
+.marca .p{font-weight:300;color:var(--indigo)}
+.marca .b{font-weight:900;color:var(--azul)}
+.tagline{font-style:italic;color:var(--violeta);font-size:14px;margin-top:2px}
+h1{color:var(--azul);font-size:26px;font-weight:700;line-height:1.3;margin:28px 0 6px}
+.subtitulo{color:var(--indigo);font-size:15px;font-weight:700;margin-bottom:20px}
+.lead{margin:0 0 14px}
+.parte{margin-top:40px}
+.parte h2{color:var(--violeta);font-size:20px;font-weight:700;border-left:4px solid var(--cyan);padding-left:12px;margin:0 0 6px}
+.q{margin-top:22px}
+.q-label{font-weight:700;display:block;margin-bottom:6px}
+.hint{color:#6b6b72;font-size:14px;margin:2px 0 10px}
+label.field{display:block;margin-bottom:12px}
+input[type=text],input[type=email],input[type=number],textarea,select{
+  width:100%;padding:12px 14px;border:1px solid var(--gris);border-radius:8px;
+  font-family:inherit;font-size:16px;background:#fff;color:var(--texto);
+}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--azul);box-shadow:0 0 0 3px rgba(29,149,204,.12)}
+textarea{min-height:78px;resize:vertical}
+.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:11px 14px;border:1px solid var(--linea);border-radius:8px;margin-bottom:8px;cursor:pointer;transition:background .15s,border-color .15s}
+.opt:hover{background:#f4f6f9}
+.opt input{margin-top:4px;flex-shrink:0;width:17px;height:17px;accent-color:var(--azul)}
+.opt span{flex:1}
+.opt .fill{margin-top:8px}
+.counter{background:#eaf6fd;border-left:3px solid var(--azul);border-radius:8px;padding:12px 16px;margin-top:12px;font-size:15px}
+.counter b{color:var(--azul)}
+.counter .aviso{color:var(--violeta);font-weight:700;margin-top:6px;display:none}
+.reflexion{background:#f6f0f8;border-left:3px solid var(--violeta);border-radius:8px;padding:12px 16px;margin-top:14px;font-style:italic}
+.guia{background:#f5f8fa;border:1px solid var(--linea);border-radius:10px;padding:14px 18px;margin:10px 0}
+.guia ul{margin:6px 0 0;padding-left:18px}
+.preset{color:#4a4a52;padding-left:6px;border-left:2px solid var(--cyan);margin:6px 0 6px 2px;padding:2px 0 2px 12px}
+.consent{background:#f0f8fc;border:1px solid #cfe8f5;border-radius:10px;padding:16px 18px;margin-top:16px}
+.niveles{display:grid;grid-template-columns:1fr 90px;gap:10px;align-items:center;margin-bottom:10px}
+.niveles .lvl-label{font-size:13px;color:#6b6b72;text-align:right}
+.cierre{margin-top:44px;border-top:1px solid var(--linea);padding-top:28px}
+.cierre p{margin:0 0 14px}
+.firma{font-weight:700;color:var(--violeta);margin-top:18px}
+.enviar-wrap{margin-top:32px;text-align:center}
+button.enviar{background:var(--violeta);color:#fff;border:none;border-radius:10px;padding:15px 34px;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer;transition:background .15s}
+button.enviar:hover{background:#6f1a6c}
+button.enviar:disabled{opacity:.6;cursor:default}
+.error{color:#b3261e;font-size:14px;margin-top:10px;display:none}
+.field-error{border-color:#b3261e !important}
+#gracias{display:none;text-align:center;padding:20px 0}
+#gracias h2{color:var(--azul);border:none;padding:0}
+.cta{display:inline-block;background:var(--azul);color:#fff;text-decoration:none;padding:14px 30px;border-radius:10px;font-weight:700;margin-top:16px;transition:background .15s}
+.cta:hover{background:var(--violeta)}
+@media(max-width:620px){
+  .card{padding:28px 22px}
+  .row3{grid-template-columns:1fr}
+  body{padding:18px 10px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="card">
+
+<!-- ============ FORMULARIO ============ -->
+<form id="form">
+
+  <header>
+    <div class="marca"><span class="p">Paradigma</span> <span class="b">B</span></div>
+    <div class="tagline">La nueva visión del Bienestar Organizacional</div>
+  </header>
+
+  <h1>Soy responsable de mi propio desarrollo profesional</h1>
+  <div class="subtitulo">Guía de introspección</div>
+
+  <p class="lead">Este ejercicio te ayuda a ver dónde estás profesionalmente, entender con honestidad qué te está frenando y salir con un plan concreto para crecer — trabajes donde trabajes, o estés construyendo tu propio camino.</p>
+
+  <!-- Datos de contacto -->
+  <div class="consent">
+    <label class="field"><span class="q-label">Nombre y apellido</span>
+      <input type="text" data-key="nombre" id="nombre"></label>
+    <label class="field"><span class="q-label">Correo</span>
+      <input type="email" data-key="correo" id="correo"></label>
+    <label class="field"><span class="q-label">WhatsApp o Instagram</span>
+      <input type="text" data-key="contacto" id="contacto"></label>
+    <span class="q-label">Mi situación hoy</span>
+    <label class="opt"><input type="radio" name="situacion" value="Tengo empleo"><span>Tengo empleo</span></label>
+    <label class="opt"><input type="radio" name="situacion" value="Estoy buscando empleo"><span>Estoy buscando empleo</span></label>
+    <label class="opt"><input type="radio" name="situacion" value="Emprendo o trabajo por mi cuenta"><span>Emprendo o trabajo por mi cuenta</span></label>
+    <label class="opt" style="margin-top:6px"><input type="checkbox" data-key="consentimiento" id="consentimiento"><span>Acepto que Paradigma B use estos datos para enviarme el resultado y contactarme.</span></label>
+  </div>
+
+  <!-- PARTE 1 -->
+  <div class="parte">
+    <h2>Parte 1 · Autodiagnóstico honesto</h2>
+
+    <div class="q" id="q1">
+      <span class="q-label">1. ¿Estoy creciendo o estancándome?</span>
+      <p class="hint">Marca las que describan tu situación actual.</p>
+      <label class="opt"><input type="checkbox" data-tipo="estancamiento" value="Hago prácticamente las mismas tareas que hace un año."><span>Hago prácticamente las mismas tareas que hace un año.</span></label>
+      <label class="opt"><input type="checkbox" data-tipo="crecimiento" value="He aprendido habilidades nuevas y significativas en los últimos 6 meses."><span>He aprendido habilidades nuevas y significativas en los últimos 6 meses.</span></label>
+      <label class="opt"><input type="checkbox" data-tipo="crecimiento" value="Hace poco asumí nuevas responsabilidades o proyectos que me retaron."><span>Hace poco asumí nuevas responsabilidades o proyectos que me retaron.</span></label>
+      <label class="opt"><input type="checkbox" data-tipo="estancamiento" value="Siento que podría hacer más, pero no encuentro dónde ni con quién."><span>Siento que podría hacer más, pero no encuentro dónde ni con quién.</span></label>
+      <label class="opt"><input type="checkbox" data-tipo="crecimiento" value="Recibo retroalimentación honesta y regular sobre mi trabajo."><span>Recibo retroalimentación honesta y regular sobre mi trabajo (de mi jefe, un mentor o mis clientes).</span></label>
+      <label class="opt"><input type="checkbox" data-tipo="crecimiento" value="He tenido conversaciones serias sobre mi rumbo profesional."><span>He tenido conversaciones serias sobre mi rumbo profesional (con mi jefe, un mentor o conmigo misma/o).</span></label>
+      <label class="opt"><input type="checkbox" data-tipo="crecimiento" value="Sé exactamente qué habilidades necesito desarrollar para mi siguiente paso."><span>Sé exactamente qué habilidades necesito desarrollar para mi siguiente paso.</span></label>
+      <label class="opt"><input type="checkbox" data-tipo="estancamiento" value="Paso los días apagando incendios, sin tiempo para aprender nada nuevo."><span>Paso los días "apagando incendios", sin tiempo para aprender nada nuevo.</span></label>
+      <div class="counter">
+        Crecimiento: <b id="cont-crec">0</b> &nbsp;·&nbsp; Estancamiento: <b id="cont-est">0</b>
+        <div class="aviso" id="aviso-est">Pesan más las de estancamiento. Es momento de moverte.</div>
+      </div>
+    </div>
+
+    <div class="q">
+      <label class="field"><span class="q-label">2. ¿Cuánto tiempo llevo en mi puesto actual o con mi negocio?</span>
+        <input type="text" data-key="q2_tiempo"></label>
+      <span class="q-label">En este tiempo, ¿qué aprendí que no sabía hacer antes?</span>
+      <div class="row3">
+        <input type="text" data-key="q2_aprendi_1" placeholder="1.">
+        <input type="text" data-key="q2_aprendi_2" placeholder="2.">
+        <input type="text" data-key="q2_aprendi_3" placeholder="3.">
+      </div>
+    </div>
+
+    <div class="q">
+      <label class="field"><span class="q-label">3. La pregunta incómoda</span>
+        <p class="hint">Si mañana tu fuente de ingresos desapareciera —te despiden, pierdes a tu cliente principal, tu negocio se frena—, ¿qué habilidades o experiencias nuevas de este último año te harían vigente y buscable en el mercado?</p>
+        <textarea data-key="q3_incomoda"></textarea></label>
+    </div>
+
+    <div class="q">
+      <label class="field"><span class="q-label">4. Quién impulsa mi desarrollo hoy</span>
+        <p class="hint">¿Cuándo fue la última vez que tuviste una conversación seria sobre TU desarrollo —no sobre tareas ni resultados— con alguien que pueda ayudarte a crecer?</p>
+        <textarea data-key="q4_ultima_conversacion"></textarea></label>
+      <span class="q-label">Y si la hubo, ¿saliste con acciones claras?</span>
+      <label class="opt"><input type="radio" name="q4_acciones" value="Sí, tengo claridad sobre qué aprender y cómo."><span>Sí, tengo claridad sobre qué aprender y cómo.</span></label>
+      <label class="opt"><input type="radio" name="q4_acciones" value="Más o menos, quedó ambiguo."><span>Más o menos, quedó ambiguo.</span></label>
+      <label class="opt"><input type="radio" name="q4_acciones" value="No, fue genérica y sin conclusiones."><span>No, fue genérica y sin conclusiones.</span></label>
+      <label class="opt"><input type="radio" name="q4_acciones" value="No he tenido esa conversación."><span>No he tenido esa conversación.</span></label>
+    </div>
+
+    <div class="q">
+      <span class="q-label">5. Mi responsabilidad en esto</span>
+      <p class="hint">¿He pedido explícitamente oportunidades para aprender y crecer (a mi jefe, a un cliente, a un mentor)?</p>
+      <label class="opt"><input type="radio" name="q5_pedido" value="Sí, con frecuencia."><span>Sí, con frecuencia.</span></label>
+      <label class="opt"><input type="radio" name="q5_pedido" value="Lo mencioné una o dos veces."><span>Lo mencioné una o dos veces.</span></label>
+      <label class="opt"><input type="radio" name="q5_pedido" value="No, asumo que deberían ofrecérmelas."><span>No, asumo que deberían ofrecérmelas.</span></label>
+      <label class="opt"><input type="radio" name="q5_pedido" value="No, me da pena o miedo pedirlo."><span>No, me da pena o miedo pedirlo.</span></label>
+      <p class="hint">¿He tomado iniciativa por mi cuenta para aprender (cursos, libros, proyectos propios)?</p>
+      <label class="opt"><input type="radio" name="q5_iniciativa" value="Sí, de forma constante."><span>Sí, de forma constante.</span></label>
+      <label class="opt"><input type="radio" name="q5_iniciativa" value="A veces."><span>A veces.</span></label>
+      <label class="opt"><input type="radio" name="q5_iniciativa" value="Casi nunca."><span>Casi nunca.</span></label>
+      <label class="opt"><input type="radio" name="q5_iniciativa" value="No."><span>No.</span></label>
+      <div class="reflexion">Si no has pedido oportunidades y tampoco has tomado la iniciativa, ¿de quién es la responsabilidad de tu estancamiento?</div>
+    </div>
+  </div>
+
+  <!-- PARTE 2 -->
+  <div class="parte">
+    <h2>Parte 2 · ¿Hacia dónde quiero ir?</h2>
+
+    <div class="q">
+      <label class="field"><span class="q-label">6. Mi aspiración</span>
+        <p class="hint">En 2 o 3 años, ¿dónde quiero estar profesionalmente? Sé específica/o.</p>
+        <textarea data-key="q6_aspiracion"></textarea></label>
+      <label class="field"><span class="q-label">¿Por qué quiero eso? ¿Qué me mueve de verdad?</span>
+        <textarea data-key="q6_porque"></textarea></label>
+    </div>
+
+    <div class="q">
+      <span class="q-label">7. La brecha entre hoy y mi meta</span>
+      <p class="hint">Habilidades técnicas que me faltan:</p>
+      <div class="row3">
+        <input type="text" data-key="q7_tecnicas_1" placeholder="1."><input type="text" data-key="q7_tecnicas_2" placeholder="2."><input type="text" data-key="q7_tecnicas_3" placeholder="3.">
+      </div>
+      <p class="hint">Habilidades relacionales (mal llamadas "blandas"):</p>
+      <div class="row3">
+        <input type="text" data-key="q7_relacionales_1" placeholder="1."><input type="text" data-key="q7_relacionales_2" placeholder="2."><input type="text" data-key="q7_relacionales_3" placeholder="3.">
+      </div>
+      <p class="hint">Experiencias que aún no he tenido (liderar un proyecto, presentar a directivos, cerrar un cliente grande, delegar, negociar):</p>
+      <div class="row3">
+        <input type="text" data-key="q7_experiencias_1" placeholder="1."><input type="text" data-key="q7_experiencias_2" placeholder="2."><input type="text" data-key="q7_experiencias_3" placeholder="3.">
+      </div>
+    </div>
+
+    <div class="q">
+      <span class="q-label">8. ¿Qué me está frenando?</span>
+      <p class="hint">Marca todo lo que aplique.</p>
+      <label class="opt"><input type="checkbox" data-freno value="Nadie a mi alrededor me abre oportunidades de aprender."><span>Nadie a mi alrededor me abre oportunidades de aprender.</span></label>
+      <label class="opt"><input type="checkbox" data-freno value="No tengo claridad sobre qué necesito aprender."><span>No tengo claridad sobre qué necesito aprender.</span></label>
+      <label class="opt"><input type="checkbox" data-freno value="No hay tiempo en mi día a día para aprender."><span>No hay tiempo en mi día a día para aprender.</span></label>
+      <label class="opt"><input type="checkbox" data-freno value="No he pedido lo que necesito ni lo he buscado por mi cuenta."><span>No he pedido lo que necesito ni lo he buscado por mi cuenta.</span></label>
+      <label class="opt"><input type="checkbox" data-freno value="No tengo, o no destino, presupuesto para mi formación."><span>No tengo, o no destino, presupuesto para mi formación.</span></label>
+      <label class="opt"><input type="checkbox" data-freno value="No sé por dónde empezar."><span>No sé por dónde empezar.</span></label>
+      <label class="opt"><input type="checkbox" data-freno value="Estoy cómoda/o donde estoy."><span>Estoy cómoda/o donde estoy.</span></label>
+      <label class="field" style="margin-top:8px"><span class="q-label">De lo que marcaste, ¿cuáles dependen 100% de ti para resolverlas?</span>
+        <textarea data-key="q8_dependen"></textarea></label>
+    </div>
+  </div>
+
+  <!-- PARTE 3 -->
+  <div class="parte">
+    <h2>Parte 3 · Mi plan de acción</h2>
+
+    <div class="q">
+      <span class="q-label">9. Mis 3 prioridades de desarrollo para los próximos 6 meses</span>
+      <p class="hint">Por cada una: qué necesito aprender · cómo lo voy a aprender · qué apoyo necesito y de quién.</p>
+      <label class="field"><b>Prioridad 1</b>
+        <input type="text" data-key="q9_p1_aprender" placeholder="¿Qué necesito aprender?">
+        <input type="text" data-key="q9_p1_como" placeholder="¿Cómo lo voy a aprender?" style="margin-top:8px">
+        <input type="text" data-key="q9_p1_apoyo" placeholder="¿Qué apoyo necesito y de quién?" style="margin-top:8px"></label>
+      <label class="field"><b>Prioridad 2</b>
+        <input type="text" data-key="q9_p2_aprender" placeholder="¿Qué necesito aprender?">
+        <input type="text" data-key="q9_p2_como" placeholder="¿Cómo lo voy a aprender?" style="margin-top:8px">
+        <input type="text" data-key="q9_p2_apoyo" placeholder="¿Qué apoyo necesito y de quién?" style="margin-top:8px"></label>
+      <label class="field"><b>Prioridad 3</b>
+        <input type="text" data-key="q9_p3_aprender" placeholder="¿Qué necesito aprender?">
+        <input type="text" data-key="q9_p3_como" placeholder="¿Cómo lo voy a aprender?" style="margin-top:8px">
+        <input type="text" data-key="q9_p3_apoyo" placeholder="¿Qué apoyo necesito y de quién?" style="margin-top:8px"></label>
+    </div>
+
+    <div class="q">
+      <span class="q-label">10. Preparándome para la conversación estratégica</span>
+      <div class="guia">
+        Vas a tener una conversación sobre tu desarrollo. Con quién, depende de tu situación:
+        <ul>
+          <li>Si tienes empleo → con tu jefe o con RRHH.</li>
+          <li>Si buscas empleo → con un mentor, un referente de tu sector o alguien de tu red que ya esté donde tú quieres llegar.</li>
+          <li>Si emprendes → contigo misma/o como líder de tu negocio, y con un mentor, un par o un cliente de confianza que te dé una mirada honesta.</li>
+        </ul>
+      </div>
+      <label class="field"><input type="text" data-key="q10_vision" placeholder="Mi visión de crecimiento"></label>
+      <label class="field"><input type="text" data-key="q10_aprender" placeholder="Lo que identifiqué que necesito aprender"></label>
+      <label class="field"><input type="text" data-key="q10_propuesta" placeholder="Mi propuesta concreta"></label>
+      <p class="hint">Cuatro preguntas para hacer en esa conversación (sirven con jefe, mentor o cliente):</p>
+      <div class="preset">"¿Qué habilidades ves que necesito desarrollar para llegar a donde quiero?"</div>
+      <div class="preset">"¿Dónde ves que podría aportar más valor si aprendiera algo nuevo?"</div>
+      <div class="preset">"¿Qué punto ciego ves en mí que yo no estoy viendo?"</div>
+      <div class="preset">"¿Qué me recomiendas hacer en los próximos 6 meses para crecer?"</div>
+      <p class="hint">Agrega dos preguntas tuyas:</p>
+      <label class="field"><input type="text" data-key="q10_pregunta_1" placeholder="1."></label>
+      <label class="field"><input type="text" data-key="q10_pregunta_2" placeholder="2."></label>
+    </div>
+
+    <div class="q">
+      <span class="q-label">11. Acciones que solo dependen de ti</span>
+      <p class="hint">Esta semana me comprometo a:</p>
+      <label class="opt"><input type="checkbox" data-key="q11_sem_agendar"><span>Agendar la conversación estratégica con la persona que elegí.</span></label>
+      <label class="opt"><input type="checkbox" data-key="q11_sem_curso"><span>Inscribirme en un curso sobre:<input type="text" class="fill" data-key="q11_sem_curso_tema"></span></label>
+      <label class="opt"><input type="checkbox" data-key="q11_sem_lectura"><span>Leer el libro o artículo:<input type="text" class="fill" data-key="q11_sem_lectura_tema"></span></label>
+      <label class="opt"><input type="checkbox" data-key="q11_sem_proyecto"><span>Ofrecerme para un proyecto donde pueda aprender:<input type="text" class="fill" data-key="q11_sem_proyecto_tema"></span></label>
+      <label class="opt"><input type="checkbox" data-key="q11_sem_feedback"><span>Pedir feedback específico, a alguien cuyo criterio respeto, sobre:<input type="text" class="fill" data-key="q11_sem_feedback_tema"></span></label>
+      <p class="hint">En los próximos 3 meses me comprometo a:</p>
+      <label class="opt"><input type="checkbox" data-key="q11_3m_responsabilidad"><span>Haber asumido una nueva responsabilidad o proyecto.</span></label>
+      <label class="opt"><input type="checkbox" data-key="q11_3m_competencia"><span>Desarrollar una competencia visible en:<input type="text" class="fill" data-key="q11_3m_competencia_tema"></span></label>
+      <label class="opt"><input type="checkbox" data-key="q11_3m_seguimiento"><span>Tener una conversación de seguimiento sobre mi desarrollo.</span></label>
+      <label class="opt"><input type="checkbox" data-key="q11_3m_plan"><span>Poner por escrito mi plan de desarrollo con objetivos medibles.</span></label>
+    </div>
+  </div>
+
+  <!-- PARTE 4 -->
+  <div class="parte">
+    <h2>Parte 4 · Autoevaluación de progreso</h2>
+    <p class="hint">Hoy: <b id="fecha-hoy"></b></p>
+    <span class="q-label">Mis 3 habilidades a desarrollar y mi nivel actual (1 a 10):</span>
+    <div class="niveles"><input type="text" data-key="p4_hab_1" placeholder="Habilidad 1"><div><input type="number" min="1" max="10" data-key="p4_nivel_1" placeholder="1-10"></div></div>
+    <div class="niveles"><input type="text" data-key="p4_hab_2" placeholder="Habilidad 2"><div><input type="number" min="1" max="10" data-key="p4_nivel_2" placeholder="1-10"></div></div>
+    <div class="niveles"><input type="text" data-key="p4_hab_3" placeholder="Habilidad 3"><div><input type="number" min="1" max="10" data-key="p4_nivel_3" placeholder="1-10"></div></div>
+    <label class="field" style="margin-top:12px"><span class="q-label">Mi compromiso conmigo misma/o:</span>
+      <textarea data-key="p4_compromiso"></textarea></label>
+    <label class="opt"><input type="checkbox" data-key="p4_recordatorio"><span>Quiero que me recuerden a los 3 meses para volver a puntuarme y medir mi avance.</span></label>
+  </div>
+
+  <!-- CIERRE -->
+  <div class="cierre">
+    <p>En veinte años acompañando a profesionales y a equipos, aprendí que el talento pesa menos de lo que parece a la hora de decidir quién crece y quién se queda donde está. Lo que marca la diferencia es más incómodo: dejar de esperar a que otro se ocupe de tu carrera.</p>
+    <p>Este ejercicio no cambia nada guardado en una carpeta. Cambia algo el día que lo conviertes en una conversación con fecha y en una decisión concreta.</p>
+    <p>Cuando termines, mira lo que escribiste. Si algo te incomodó lo suficiente como para querer moverlo, ahí es donde vale la pena empezar.</p>
+    <p>Y si quieres avanzar y no sabes por dónde, hablemos.</p>
+    <p class="firma">María Conchita Figueroa · Paradigma B</p>
+  </div>
+
+  <div class="enviar-wrap">
+    <button type="submit" class="enviar" id="btn">Enviar mis respuestas</button>
+    <div class="error" id="error"></div>
+  </div>
+</form>
+
+<!-- ============ GRACIAS ============ -->
+<div id="gracias">
+  <header>
+    <div class="marca"><span class="p">Paradigma</span> <span class="b">B</span></div>
+    <div class="tagline">La nueva visión del Bienestar Organizacional</div>
+  </header>
+  <h2 style="margin-top:26px">Listo. Tus respuestas quedaron guardadas.</h2>
+  <p>Diste el primer paso, que es mirarte con honestidad. El segundo es convertir esto en una conversación con fecha.</p>
+  <p>Media hora. Miramos juntas/os qué te está frenando y qué mover primero.</p>
+  <a class="cta" id="cta-cita" href="#" target="_blank" rel="noopener">Agenda una videollamada conmigo</a>
+</div>
+
+</div>
+</div>
+
+<script>
+/* ==========================================================
+   CONFIGURACIÓN — lo único que quizá tengas que tocar
+   ========================================================== */
+const SUPABASE_URL  = "https://tforsnpextacsjlvykrv.supabase.co";
+const SUPABASE_KEY  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRmb3JzbnBleHRhY3NqbHZ5a3J2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk3Nzg1NzMsImV4cCI6MjEwNTM1NDU3M30.DCUCHGuPJR6K9kSRG0W4rf7VafUSZ4DyHjj2nvzGBvY";
+const TABLA         = "leads_introspeccion";
+const CALENDLY_URL  = "#"; /* <-- pega aquí tu enlace de videollamada (Calendly u otro) */
+/* ========================================================== */
+
+document.getElementById("fecha-hoy").textContent =
+  new Date().toLocaleDateString("es-EC", {day:"2-digit", month:"long", year:"numeric"});
+
+if (CALENDLY_URL && CALENDLY_URL !== "#") document.getElementById("cta-cita").href = CALENDLY_URL;
+
+/* Contador vivo de la pregunta 1 */
+const q1 = document.getElementById("q1");
+q1.addEventListener("change", () => {
+  let c = 0, e = 0;
+  q1.querySelectorAll("input:checked").forEach(i => i.dataset.tipo === "crecimiento" ? c++ : e++);
+  document.getElementById("cont-crec").textContent = c;
+  document.getElementById("cont-est").textContent = e;
+  document.getElementById("aviso-est").style.display = (e > c && (c + e) > 0) ? "block" : "none";
+});
+
+function recolectar() {
+  const d = {};
+  document.querySelectorAll("[data-key]").forEach(el => {
+    if (el.type === "checkbox") d[el.dataset.key] = el.checked;
+    else d[el.dataset.key] = (el.value || "").trim();
+  });
+  document.querySelectorAll("input[type=radio]:checked").forEach(el => { d[el.name] = el.value; });
+  d.q1_diagnostico = [...q1.querySelectorAll("input:checked")].map(i => i.value);
+  d.q8_frenos = [...document.querySelectorAll("input[data-freno]:checked")].map(i => i.value);
+  d.fecha = new Date().toISOString();
+  return d;
+}
+
+const form = document.getElementById("form");
+const btn = document.getElementById("btn");
+const errBox = document.getElementById("error");
+
+function marcarError(el){ if(el) el.classList.add("field-error"); }
+["nombre","correo","consentimiento"].forEach(id=>{
+  document.getElementById(id).addEventListener("input",()=>document.getElementById(id).classList.remove("field-error"));
+});
+
+form.addEventListener("submit", async (ev) => {
+  ev.preventDefault();
+  errBox.style.display = "none";
+  const nombre = document.getElementById("nombre");
+  const correo = document.getElementById("correo");
+  const consent = document.getElementById("consentimiento");
+  let falla = "";
+  if (!nombre.value.trim()){ marcarError(nombre); falla = "Escribe tu nombre para continuar."; }
+  else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(correo.value.trim())){ marcarError(correo); falla = "Revisa tu correo, parece incompleto."; }
+  else if (!consent.checked){ marcarError(consent.closest(".opt")); falla = "Necesito tu autorización para enviarte el resultado."; }
+  if (falla){ errBox.textContent = falla; errBox.style.display = "block"; return; }
+
+  const d = recolectar();
+  const payload = {
+    nombre: d.nombre, correo: d.correo, contacto: d.contacto,
+    situacion: d.situacion || null, consentimiento: !!d.consentimiento,
+    respuestas: d
+  };
+
+  btn.disabled = true; btn.textContent = "Enviando…";
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLA}`, {
+      method: "POST",
+      headers: {
+        "apikey": SUPABASE_KEY,
+        "Authorization": "Bearer " + SUPABASE_KEY,
+        "Content-Type": "application/json",
+        "Prefer": "return=minimal"
+      },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error(await res.text());
+    form.style.display = "none";
+    document.getElementById("gracias").style.display = "block";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } catch (err) {
+    btn.disabled = false; btn.textContent = "Enviar mis respuestas";
+    errBox.textContent = "No pudimos guardar tus respuestas. Revisa tu conexión e inténtalo de nuevo en un momento.";
+    errBox.style.display = "block";
+    console.error(err);
+  }
+});
+</script>
+</body>
+</html>
