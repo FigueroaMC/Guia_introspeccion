@@ -46,7 +46,9 @@ textarea{min-height:78px;resize:vertical}
 .opt:hover{background:#f4f6f9}
 .opt input{margin-top:4px;flex-shrink:0;width:17px;height:17px;accent-color:var(--azul)}
 .opt span{flex:1}
-.opt .fill{margin-top:8px}
+.opt-fill{margin-bottom:10px}
+.opt-fill .opt{margin-bottom:6px}
+.opt-fill .fill{margin-left:14px;width:calc(100% - 14px);border-left:2px solid var(--cyan)}
 .counter{background:#eaf6fd;border-left:3px solid var(--azul);border-radius:8px;padding:12px 16px;margin-top:12px;font-size:15px}
 .counter b{color:var(--azul)}
 .counter .aviso{color:var(--violeta);font-weight:700;margin-top:6px;display:none}
@@ -142,7 +144,7 @@ button.enviar:disabled{opacity:.6;cursor:default}
     </div>
 
     <div class="q">
-      <label class="field"><span class="q-label">3. La pregunta incómoda</span>
+      <label class="field"><span class="q-label">3. Una pregunta que asusta</span>
         <p class="hint">Si mañana tu fuente de ingresos desapareciera —te despiden, pierdes a tu cliente principal, tu negocio se frena—, ¿qué habilidades o experiencias nuevas de este último año te harían vigente y buscable en el mercado?</p>
         <textarea data-key="q3_incomoda"></textarea></label>
     </div>
@@ -265,13 +267,28 @@ button.enviar:disabled{opacity:.6;cursor:default}
       <span class="q-label">11. Acciones que solo dependen de ti</span>
       <p class="hint">Esta semana me comprometo a:</p>
       <label class="opt"><input type="checkbox" data-key="q11_sem_agendar"><span>Agendar la conversación estratégica con la persona que elegí.</span></label>
-      <label class="opt"><input type="checkbox" data-key="q11_sem_curso"><span>Inscribirme en un curso sobre:<input type="text" class="fill" data-key="q11_sem_curso_tema"></span></label>
-      <label class="opt"><input type="checkbox" data-key="q11_sem_lectura"><span>Leer el libro o artículo:<input type="text" class="fill" data-key="q11_sem_lectura_tema"></span></label>
-      <label class="opt"><input type="checkbox" data-key="q11_sem_proyecto"><span>Ofrecerme para un proyecto donde pueda aprender:<input type="text" class="fill" data-key="q11_sem_proyecto_tema"></span></label>
-      <label class="opt"><input type="checkbox" data-key="q11_sem_feedback"><span>Pedir feedback específico, a alguien cuyo criterio respeto, sobre:<input type="text" class="fill" data-key="q11_sem_feedback_tema"></span></label>
+      <div class="opt-fill">
+        <label class="opt"><input type="checkbox" data-key="q11_sem_curso"><span>Inscribirme en un curso sobre…</span></label>
+        <input type="text" class="fill" data-key="q11_sem_curso_tema" placeholder="¿sobre qué tema?">
+      </div>
+      <div class="opt-fill">
+        <label class="opt"><input type="checkbox" data-key="q11_sem_lectura"><span>Leer el libro o artículo…</span></label>
+        <input type="text" class="fill" data-key="q11_sem_lectura_tema" placeholder="¿cuál?">
+      </div>
+      <div class="opt-fill">
+        <label class="opt"><input type="checkbox" data-key="q11_sem_proyecto"><span>Ofrecerme para un proyecto donde pueda aprender…</span></label>
+        <input type="text" class="fill" data-key="q11_sem_proyecto_tema" placeholder="¿aprender qué?">
+      </div>
+      <div class="opt-fill">
+        <label class="opt"><input type="checkbox" data-key="q11_sem_feedback"><span>Pedir feedback específico, a alguien cuyo criterio respeto, sobre…</span></label>
+        <input type="text" class="fill" data-key="q11_sem_feedback_tema" placeholder="¿sobre qué?">
+      </div>
       <p class="hint">En los próximos 3 meses me comprometo a:</p>
       <label class="opt"><input type="checkbox" data-key="q11_3m_responsabilidad"><span>Haber asumido una nueva responsabilidad o proyecto.</span></label>
-      <label class="opt"><input type="checkbox" data-key="q11_3m_competencia"><span>Desarrollar una competencia visible en:<input type="text" class="fill" data-key="q11_3m_competencia_tema"></span></label>
+      <div class="opt-fill">
+        <label class="opt"><input type="checkbox" data-key="q11_3m_competencia"><span>Desarrollar una competencia visible en…</span></label>
+        <input type="text" class="fill" data-key="q11_3m_competencia_tema" placeholder="¿en qué?">
+      </div>
       <label class="opt"><input type="checkbox" data-key="q11_3m_seguimiento"><span>Tener una conversación de seguimiento sobre mi desarrollo.</span></label>
       <label class="opt"><input type="checkbox" data-key="q11_3m_plan"><span>Poner por escrito mi plan de desarrollo con objetivos medibles.</span></label>
     </div>
@@ -292,9 +309,9 @@ button.enviar:disabled{opacity:.6;cursor:default}
 
   <!-- CIERRE -->
   <div class="cierre">
-    <p>En veinte años acompañando a profesionales y a equipos, aprendí que el talento pesa menos de lo que parece a la hora de decidir quién crece y quién se queda donde está. Lo que marca la diferencia es más incómodo: dejar de esperar a que otro se ocupe de tu carrera.</p>
-    <p>Este ejercicio no cambia nada guardado en una carpeta. Cambia algo el día que lo conviertes en una conversación con fecha y en una decisión concreta.</p>
-    <p>Cuando termines, mira lo que escribiste. Si algo te incomodó lo suficiente como para querer moverlo, ahí es donde vale la pena empezar.</p>
+    <p>En doce años acompañando a profesionales y a equipos, aprendí que lo que marca la diferencia a la hora de crecer o quedarse estancado, es cuando dejas de esperar a que otro se ocupe de tu carrera y tu desarrollo.</p>
+    <p>Este ejercicio no cambiará nada si sólo lo llenas y te olvidas. Cambia algo el día en que lo conviertes en una conversación con fecha y en una decisión concreta.</p>
+    <p>Cuando termines, lee nuevamente lo que escribiste. Si las respuestas no satisfacen y te dejan con una sensación incómoda, ahí es donde vale la pena empezar.</p>
     <p>Y si quieres avanzar y no sabes por dónde, hablemos.</p>
     <p class="firma">María Conchita Figueroa · Paradigma B</p>
   </div>
@@ -312,8 +329,8 @@ button.enviar:disabled{opacity:.6;cursor:default}
     <div class="tagline">La nueva visión del Bienestar Organizacional</div>
   </header>
   <h2 style="margin-top:26px">Listo. Tus respuestas quedaron guardadas.</h2>
-  <p>Diste el primer paso, que es mirarte con honestidad. El segundo es convertir esto en una conversación con fecha.</p>
-  <p>Media hora. Miramos juntas/os qué te está frenando y qué mover primero.</p>
+  <p>Diste el primer paso, que es mirarte con honestidad.</p>
+  <p>Reserva una videollamada conmigo y exploremos cómo puedo ayudarte a recuperar el control de tu carrera y tu desarrollo profesional.</p>
   <a class="cta" id="cta-cita" href="#" target="_blank" rel="noopener">Agenda una videollamada conmigo</a>
 </div>
 
@@ -327,7 +344,7 @@ button.enviar:disabled{opacity:.6;cursor:default}
 const SUPABASE_URL  = "https://tforsnpextacsjlvykrv.supabase.co";
 const SUPABASE_KEY  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRmb3JzbnBleHRhY3NqbHZ5a3J2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk3Nzg1NzMsImV4cCI6MjEwNTM1NDU3M30.DCUCHGuPJR6K9kSRG0W4rf7VafUSZ4DyHjj2nvzGBvY";
 const TABLA         = "leads_introspeccion";
-const CALENDLY_URL  = "#"; /* <-- pega aquí tu enlace de videollamada (Calendly u otro) */
+const CALENDLY_URL  = "https://cal.com/paradigmab/videollamada"; /* <-- tu enlace de videollamada */
 /* ========================================================== */
 
 document.getElementById("fecha-hoy").textContent =
