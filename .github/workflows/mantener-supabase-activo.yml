@@ -1,0 +1,21 @@
+name: Mantener Supabase activo
+
+# Supabase pausa los proyectos del plan gratuito tras 7 dias sin actividad.
+# Esta tarea hace una consulta ligera a diario para que el proyecto registre uso.
+# La llave es la publica (anon) que ya esta en index.html; solo puede insertar, no leer.
+
+on:
+  schedule:
+    - cron: "17 14 * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Consulta a la base
+        run: |
+          curl --fail --silent --show-error --max-time 60 \
+            "https://tforsnpextacsjlvykrv.supabase.co/rest/v1/leads_introspeccion?select=id&limit=1" \
+            -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRmb3JzbnBleHRhY3NqbHZ5a3J2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk3Nzg1NzMsImV4cCI6MjEwNTM1NDU3M30.DCUCHGuPJR6K9kSRG0W4rf7VafUSZ4DyHjj2nvzGBvY" \
+            -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRmb3JzbnBleHRhY3NqbHZ5a3J2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk3Nzg1NzMsImV4cCI6MjEwNTM1NDU3M30.DCUCHGuPJR6K9kSRG0W4rf7VafUSZ4DyHjj2nvzGBvY"
