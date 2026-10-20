@@ -72,6 +72,27 @@ button.enviar:disabled{opacity:.6;cursor:default}
 #gracias h2{color:var(--azul);border:none;padding:0}
 .cta{display:inline-block;background:var(--azul);color:#fff;text-decoration:none;padding:14px 30px;border-radius:10px;font-weight:700;margin-top:16px;transition:background .15s}
 .cta:hover{background:var(--violeta)}
+button.cta{border:none;cursor:pointer;font-family:inherit;font-size:16px}
+.pdf-hint{font-size:13px;color:#888;margin:10px 0 0}
+#resumen{display:none;text-align:left}
+.r-titulo-doc{color:var(--azul);font-size:22px;font-weight:700;margin:22px 0 2px}
+.r-fecha{color:#6b6b72;font-size:13px;margin:0 0 6px}
+.r-parte{color:var(--violeta);font-size:17px;font-weight:700;border-left:4px solid var(--cyan);padding-left:10px;margin:26px 0 8px}
+.r-q{margin:0 0 14px;padding-bottom:8px;border-bottom:1px solid var(--linea)}
+.r-q-titulo{font-weight:700;margin-bottom:4px}
+.r-sub{font-weight:700;color:var(--indigo);font-size:14px;margin:6px 0 2px}
+.r-fila{padding-left:12px;border-left:2px solid var(--cyan);margin:3px 0;font-size:14.5px}
+.r-et{color:#6b6b72}
+.r-vacio{color:#9a9aa2;font-style:italic;font-size:14px;padding-left:12px}
+.r-pie{margin-top:26px;font-size:13px;color:#6b6b72;text-align:center}
+@media print{
+  body{background:#fff;padding:0}
+  .card{border:none;padding:0}
+  .no-print{display:none !important}
+  #resumen{display:block}
+  .r-q{break-inside:avoid}
+  .r-parte{break-after:avoid}
+}
 @media(max-width:620px){
   .card{padding:28px 22px}
   .row3{grid-template-columns:1fr}
@@ -328,10 +349,16 @@ button.enviar:disabled{opacity:.6;cursor:default}
     <div class="marca"><span class="p">Paradigma</span> <span class="b">B</span></div>
     <div class="tagline">La nueva visión del Bienestar Organizacional</div>
   </header>
-  <h2 style="margin-top:26px">Listo. Tus respuestas quedaron guardadas.</h2>
-  <p>Diste el primer paso, que es mirarte con honestidad.</p>
-  <p>Reserva una videollamada conmigo y exploremos cómo puedo ayudarte a recuperar el control de tu carrera y tu desarrollo profesional.</p>
-  <a class="cta" id="cta-cita" href="#" target="_blank" rel="noopener">Agenda una videollamada conmigo</a>
+  <div class="no-print">
+    <h2 style="margin-top:26px">Listo. Tus respuestas quedaron guardadas.</h2>
+    <p>Diste el primer paso, que es mirarte con honestidad.</p>
+    <p><button type="button" class="cta" onclick="window.print()" style="margin-top:0">📥 Descargar mis respuestas (PDF)</button></p>
+    <p class="pdf-hint">Se abrirá el cuadro de impresión de tu navegador — elige "Guardar como PDF" como destino.</p>
+    <p style="margin-top:28px">Reserva una videollamada conmigo y exploremos cómo puedo ayudarte a recuperar el control de tu carrera y tu desarrollo profesional.</p>
+    <a class="cta" id="cta-cita" href="#" target="_blank" rel="noopener">Agenda una videollamada conmigo</a>
+  </div>
+  <!-- Resumen de respuestas: solo se ve al imprimir / guardar como PDF -->
+  <div id="resumen"></div>
 </div>
 
 </div>
@@ -375,6 +402,102 @@ function recolectar() {
   return d;
 }
 
+/* Arma, con lo que la persona respondió, el resumen que se imprime como PDF */
+function construirResumen(){
+  const cont = document.getElementById("resumen");
+  cont.innerHTML = "";
+  const nuevo = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt !== undefined) e.textContent = txt; return e; };
+  const limpio = s => (s || "").replace(/\s+/g, " ").trim();
+  const textoOpt = el => { const l = el.closest("label"); const s = l && l.querySelector("span"); return limpio(s ? s.textContent : el.value); };
+  const previo = (nodo, sel) => { let p = nodo.previousElementSibling; while (p) { if (p.matches(sel)) return p; p = p.previousElementSibling; } return null; };
+  const fila = (et, v) => { const f = nuevo("div", "r-fila"); if (et) f.appendChild(nuevo("span", "r-et", et + " ")); f.appendChild(nuevo("span", "r-val", v)); return f; };
+
+  cont.appendChild(nuevo("h2", "r-titulo-doc", "Mis respuestas · Guía de introspección"));
+  cont.appendChild(nuevo("p", "r-fecha", "Fecha: " + document.getElementById("fecha-hoy").textContent));
+
+  /* Datos de la persona */
+  const datos = nuevo("div", "r-q");
+  datos.appendChild(nuevo("div", "r-q-titulo", "Mis datos"));
+  const sit = document.querySelector("input[name=situacion]:checked");
+  [["Nombre y apellido", document.getElementById("nombre").value],
+   ["Correo", document.getElementById("correo").value],
+   ["WhatsApp o Instagram", document.getElementById("contacto").value],
+   ["Mi situación hoy", sit ? sit.value : ""]
+  ].forEach(([et, v]) => { if (limpio(v)) datos.appendChild(fila(et, limpio(v))); });
+  cont.appendChild(datos);
+
+  function bloqueResumen(b, esQ){
+    const caja = nuevo("div", "r-q");
+    const t = b.querySelector(".q-label");
+    const titulo = t ? limpio(t.textContent) : "";
+    if (titulo) caja.appendChild(nuevo("div", "r-q-titulo", titulo));
+    let n = 0, ultimoEnc = "";
+    const poner = (et, v) => { caja.appendChild(fila(et, v)); n++; };
+
+    b.querySelectorAll(".niveles").forEach(row => {
+      const hab = limpio(row.querySelector("input[type=text]").value);
+      const niv = limpio(row.querySelector("input[type=number]").value);
+      if (hab || niv) poner(null, (hab || "—") + (niv ? " — nivel " + niv + "/10" : ""));
+    });
+
+    b.querySelectorAll("input, textarea").forEach(el => {
+      if (el.closest(".niveles")) return;
+      if (el.type === "checkbox" || el.type === "radio") {
+        if (!el.checked) return;
+        const nodo = el.closest(".opt-fill") || el.closest("label.opt");
+        const h = esQ && nodo ? previo(nodo, ".q-label, .hint") : null;
+        const ht = h ? limpio(h.textContent) : "";
+        let texto = textoOpt(el);
+        const fill = el.closest(".opt-fill") && el.closest(".opt-fill").querySelector(".fill");
+        if (fill && limpio(fill.value)) texto += " → " + limpio(fill.value);
+        if (el.type === "radio") { poner(ht || null, texto); return; }
+        if (ht.endsWith(":") && ht !== ultimoEnc) { caja.appendChild(nuevo("div", "r-sub", ht)); ultimoEnc = ht; }
+        poner(null, texto);
+        return;
+      }
+      const v = limpio(el.value);
+      if (!v) return;
+      if (el.classList.contains("fill")) {
+        const chk = el.closest(".opt-fill") && el.closest(".opt-fill").querySelector("input[type=checkbox]");
+        if (chk && chk.checked) return;
+        poner(chk ? textoOpt(chk) : null, v);
+        return;
+      }
+      const campo = el.closest("label.field");
+      const row3 = el.closest(".row3");
+      const ph = limpio(el.placeholder);
+      const numerico = /^\d+\.$/.test(ph);
+      let ctx = "";
+      if (campo) {
+        const ql = campo.querySelector(".q-label, b");
+        if (ql && limpio(ql.textContent) !== titulo) ctx = limpio(ql.textContent);
+        else if (!ql && (numerico || !ph)) { const p = previo(campo, ".hint, .q-label"); if (p) ctx = limpio(p.textContent); }
+      } else if (row3) {
+        const p = previo(row3, ".hint, .q-label"); if (p) ctx = limpio(p.textContent);
+      }
+      let et = ph && !numerico ? ph : "";
+      if (ctx && et) et = ctx + " · " + et;
+      else if (ctx) et = ctx + (numerico ? " " + ph : "");
+      else if (!et && numerico) et = ph;
+      poner(et || null, v);
+    });
+
+    if (b.id === "q1" && document.querySelector("#q1 input:checked")) {
+      poner(null, "Crecimiento: " + document.getElementById("cont-crec").textContent + " · Estancamiento: " + document.getElementById("cont-est").textContent);
+    }
+    if (!n) caja.appendChild(nuevo("div", "r-vacio", "Sin respuesta"));
+    return caja;
+  }
+
+  document.querySelectorAll(".parte").forEach(parte => {
+    cont.appendChild(nuevo("h3", "r-parte", limpio(parte.querySelector("h2").textContent)));
+    const bloques = [...parte.querySelectorAll(".q")];
+    (bloques.length ? bloques : [parte]).forEach(b => cont.appendChild(bloqueResumen(b, bloques.length > 0)));
+  });
+
+  cont.appendChild(nuevo("p", "r-pie", "María Conchita Figueroa · Paradigma B — La nueva visión del Bienestar Organizacional"));
+}
+
 const form = document.getElementById("form");
 const btn = document.getElementById("btn");
 const errBox = document.getElementById("error");
@@ -416,6 +539,7 @@ form.addEventListener("submit", async (ev) => {
       body: JSON.stringify(payload)
     });
     if (!res.ok) throw new Error(await res.text());
+    try { construirResumen(); } catch (e) { console.error("Resumen PDF:", e); }
     form.style.display = "none";
     document.getElementById("gracias").style.display = "block";
     window.scrollTo({ top: 0, behavior: "smooth" });
