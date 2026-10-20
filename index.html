@@ -84,6 +84,10 @@ button.cta{border:none;cursor:pointer;font-family:inherit;font-size:16px}
 .r-fila{padding-left:12px;border-left:2px solid var(--cyan);margin:3px 0;font-size:14.5px}
 .r-et{color:#6b6b72}
 .r-vacio{color:#9a9aa2;font-style:italic;font-size:14px;padding-left:12px}
+.r-acomp{margin-top:30px;border:1px solid var(--cyan);border-left-width:4px;border-radius:8px;padding:16px 20px;break-inside:avoid;text-align:center}
+.r-acomp-texto{margin:0 0 10px}
+.r-acomp-link{color:var(--azul);font-weight:700;font-size:17px;text-decoration:underline}
+.r-acomp-url{margin-top:4px;font-size:13px;color:#6b6b72;word-break:break-all}
 .r-pie{margin-top:26px;font-size:13px;color:#6b6b72;text-align:center}
 @media print{
   body{background:#fff;padding:0}
@@ -494,6 +498,17 @@ function construirResumen(){
     const bloques = [...parte.querySelectorAll(".q")];
     (bloques.length ? bloques : [parte]).forEach(b => cont.appendChild(bloqueResumen(b, bloques.length > 0)));
   });
+
+  /* Ofrecimiento de acompañamiento + enlace para reservar (igual que en pantalla) */
+  const acomp = nuevo("div", "r-acomp");
+  acomp.appendChild(nuevo("p", "r-acomp-texto", "Reserva una videollamada conmigo y exploremos cómo puedo ayudarte a recuperar el control de tu carrera y tu desarrollo profesional."));
+  if (CALENDLY_URL && CALENDLY_URL !== "#") {
+    const enlace = nuevo("a", "r-acomp-link", "Agenda una videollamada conmigo");
+    enlace.href = CALENDLY_URL; enlace.target = "_blank"; enlace.rel = "noopener";
+    acomp.appendChild(enlace);
+    acomp.appendChild(nuevo("div", "r-acomp-url", CALENDLY_URL));
+  }
+  cont.appendChild(acomp);
 
   cont.appendChild(nuevo("p", "r-pie", "María Conchita Figueroa · Paradigma B — La nueva visión del Bienestar Organizacional"));
 }
